@@ -1,0 +1,30 @@
+h1 a, h2 a {
+    color: #C25100;
+    font-family: 'Ubuntu';
+}
+
+#header_container {
+    background-color: #e2ac86;
+}
+
+#header {
+    font-family: 'Ubuntu';
+    padding-bottom: 10px;
+    padding-top: 20px;
+    margin-left: 15px;
+}
+
+#sub_header {
+    font-family: 'Ubuntu';
+}
+
+hr {
+    display: block;
+    margin-top: 2em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
