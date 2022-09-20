@@ -11,7 +11,7 @@ Objectifs :
 - Mettre en place un outil de gestion de bibliothèque 
 - Publier le code sur ton compte github
   - soit en public
-  - soit en privé en m'invitant à consulter le projet (mon compte : https://github.com/submarcos)
+  - soit en privé en m'invitant à consulter le projet 
 
 qui permet de :
 
@@ -27,4 +27,3 @@ en option, bonus :
 - Mettre en place une intégration continue avec github actions
   - avec un job de vérification de la qualité (au choix)
   - un job qui lance et vérifie les tests unitaires
-
