@@ -14,10 +14,9 @@
     </tr>
 
     <!-- Content of the table -->
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
     <tr>
-
-        <!-- Iterate over object_list -->
-        {% for object in object_list %}
         <!-- Display Objects -->
         <td>{{ object.title }}</td>
         <td>{{ object.og_title }}</td>
@@ -26,13 +25,14 @@
         <td>{{ object.isbn }}</td>
         <td>{{ object.published_year }}</td>
         <td>{{ object.is_lent }}</td>
+    </tr>
 
         <!-- If object_list is empty  -->
-        {% empty %}
-        <li>No objects yet.</li>
+    {% empty %}
+    <li>No objects yet.</li>
 
-        {% endfor %}
-    </tr>
+    {% endfor %}
+    
 </table>
 {% endblock %}
 
