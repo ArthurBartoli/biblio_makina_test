@@ -11,11 +11,18 @@
 	<body>
 
 		<div id='header_container'>
+            <a href="{% url 'book_new' %}" class="actions">
+                Ajouter un livre
+            </a>
+
 			<div id='header'>
 				<h1>Bibliothèque</h1>
 				<h5 class='subtitle'>Une vue complète sur les références de vos établissements</h5>
-			</div>
+            </div>
+            
 		</div>
+
+        
 
 		<div class="container" style="padding-top:20px">
 			{% block content %}

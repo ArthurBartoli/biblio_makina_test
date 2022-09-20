@@ -28,7 +28,20 @@ hr {
     border-width: 1px;
 }
 
+.actions {
+    float: right;
+    padding-right: 3em;
+    padding-top: 2em;
+}
+
+table {
+    width:100%
+}
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+  }
+table.center {
+    margin-left: auto;
+    margin-right: auto;
   }
