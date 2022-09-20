@@ -30,10 +30,10 @@
         <td>
             
             {% if object.is_lent %}
-            <p>Le livre est emprunté.</p>
+            <p>Ce livre est <b>emprunté</b>.</p>
             <a href="{% url 'book_lending' pk=object.pk %}">Le rendre ?</a>
             {% else %}
-            <p>Le livre est disponible.</p>
+            <p>Ce livre est <b>disponible</b>.</p>
             <a href="{% url 'book_lending' pk=object.pk %}">Le prêter ?</a>
             {% endif %}
         </td>
