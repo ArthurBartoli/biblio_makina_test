@@ -9,7 +9,6 @@ class BookView(ListView):
     model = Book
 
 def book_new(request):
-
     if request.method == "POST":
         form = BookForm(request.POST)
         if form.is_valid():
@@ -37,4 +36,16 @@ def book_edit(request, pk):
 def book_delete(request, pk):
     book = get_object_or_404(Book, pk=pk)
     book.delete()
+    return redirect('book_view')
+
+def book_lending(resquest, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if book.is_lent:
+        book.is_lent = False
+        book.save()
+    else:
+        book.is_lent = True
+        book.save()
+
+    # TODO: UNIT TEST !!!
     return redirect('book_view')

@@ -18,14 +18,27 @@
     <!-- Iterate over object_list -->
     {% for object in object_list %}
     <tr>
-        <!-- Display Objects -->
+        <!-- Display fields -->
         <td>{{ object.title }}</td>
         <td>{{ object.og_title }}</td>
         <td>{{ object.author }}</td>
         <td>{{ object.desc }}</td>
         <td>{{ object.isbn }}</td>
         <td>{{ object.published_year }}</td>
-        <td>{{ object.is_lent }}</td>
+
+        <!-- Correct the lending status -->
+        <td>
+            
+            {% if object.is_lent %}
+            <p>Le livre est emprunté.</p>
+            <a href="{% url 'book_lending' pk=object.pk %}">Le rendre ?</a>
+            {% else %}
+            <p>Le livre est disponible.</p>
+            <a href="{% url 'book_lending' pk=object.pk %}">Le prêter ?</a>
+            {% endif %}
+        </td>
+        
+        <!-- Edit/Delete -->
         <td>
             <a class="btn btn-secondary" href="{% url 'book_edit' pk=object.pk %}">
                 Modifier le livre
