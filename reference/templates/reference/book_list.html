@@ -30,6 +30,9 @@
             <a class="btn btn-secondary" href="{% url 'book_edit' pk=object.pk %}">
                 Modifier le livre
             </a>
+            <a class="btn btn-secondary" href="{% url 'book_delete' pk=object.pk %}">
+                Supprimer le livre
+            </a>
         </td>
     </tr>
 

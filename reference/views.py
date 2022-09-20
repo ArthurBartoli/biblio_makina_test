@@ -33,3 +33,8 @@ def book_edit(request, pk):
     else:
         form = BookForm(instance=book)
     return render(request, 'reference/book_edit.html', {'form': form})
+
+def book_delete(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    book.delete()
+    return redirect('book_view')
