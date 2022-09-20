@@ -1,0 +1,38 @@
+{% extends 'reference/base.html' %}
+
+{% block content %}
+<table style="width:100%">
+    <!-- All column names -->
+    <tr class='col_names'>
+        <th>Titre</th>
+        <th>Titre original</th>
+        <th>Auteur</th>
+        <th>Description</th>
+        <th>ISBN</th>
+        <th>Année de publication</th>
+        <th>Emprunté ?</th>
+    </tr>
+
+    <!-- Content of the table -->
+    <tr>
+
+        <!-- Iterate over object_list -->
+        {% for object in object_list %}
+        <!-- Display Objects -->
+        <td>{{ object.title }}</td>
+        <td>{{ object.og_title }}</td>
+        <td>{{ object.author }}</td>
+        <td>{{ object.desc }}</td>
+        <td>{{ object.isbn }}</td>
+        <td>{{ object.published_year }}</td>
+        <td>{{ object.is_lent }}</td>
+
+        <!-- If object_list is empty  -->
+        {% empty %}
+        <li>No objects yet.</li>
+
+        {% endfor %}
+    </tr>
+</table>
+{% endblock %}
+

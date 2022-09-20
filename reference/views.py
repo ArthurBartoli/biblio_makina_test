@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.views.generic.list import ListView
+from .models import Book
 
 # Create your views here.
-def book_view(request):
-    return render(request, 'reference/book_view.html', {})
+class BookView(ListView):
+    # specify the model for list view
+    model = Book

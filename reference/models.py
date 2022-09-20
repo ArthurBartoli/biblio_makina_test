@@ -11,7 +11,7 @@ class Book(models.Model):
     # 14 chars := 13 digits + 1 dash to seperate code and checksum
     isbn = models.CharField(max_length=14)
     published_year = models.IntegerField()
-    is_lent = models.BooleanField()
+    is_lent = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
