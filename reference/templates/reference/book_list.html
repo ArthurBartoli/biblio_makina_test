@@ -15,7 +15,6 @@
     </tr>
 
     <!-- Content of the table -->
-    <!-- Iterate over object_list -->
     {% for object in object_list %}
     <tr>
         <!-- Display fields -->
@@ -51,7 +50,19 @@
 
         <!-- If empty  -->
     {% empty %}
-    <li>No objects yet.</li>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <td>---</td>
+    <p>
+        <h3>Il n'y aucun livre dans la bibliothèque.</h3>
+        <h5>Contactez l'admin en cas d'erreur de base de données.</h5>
+    
+    </p>
 
     {% endfor %}
     
