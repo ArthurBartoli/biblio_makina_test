@@ -30,7 +30,46 @@ class AddBookViewTest(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertEqual(response["Location"], reverse('book_view'))
 
+class EditBookViewTest(TestCase):
 
+    def setUp(self):
+            self.test_book = Book.objects.create(
+                    title='Titre',
+                    og_title='Title',
+                    author='Auteur',
+                    desc='Desc',
+                    isbn='ISBN',
+                    published_year=1,
+                    is_lent=True
+                )
+            
+            dummyData = {}
+            dummyData['title'] = "Le Test"
+            dummyData['og_title'] = "The Test"
+            dummyData['author'] = "Mister Test"
+            dummyData['desc'] = "Ceci n'est pas un test"
+            dummyData['isbn'] = "74-86-Le-Test"
+            dummyData['published_year'] = 2022
+            dummyData['is_lent'] = False
+
+            self.data = dummyData
+
+    def test_edit_success(self):
+        response = self.client.post(reverse('book_edit', args=[self.test_book.pk]), data=self.data)
+
+        # We check that the data is valid
+        form = BookForm(data=self.data)
+        self.assertTrue(form.is_valid())
+
+        # Checking status
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response["Location"], reverse('book_view'))
+
+        # Checking changes were made
+        new_book = Book.objects.get(pk=self.test_book.pk)
+        for k in self.data:
+            val = getattr(new_book, k)
+            self.assertEqual(val, self.data[k])
 
 
 class ViewResponseTest(TestCase):
