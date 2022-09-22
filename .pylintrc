@@ -1,12 +1,12 @@
 [pylint]
 ignore=
     manage.py,
-    */migrations,
+    reference/migrations/,
     */__init__.py,
     */apps.py,
     */admin.py,
     */serializers.py,
-    */tempCodeRunnerFile.py
+    reference/tempCodeRunnerFile.py
 disable=
     import-error,
     missing-module-docstring,
