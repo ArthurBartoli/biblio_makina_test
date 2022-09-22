@@ -9,6 +9,11 @@ class BookView(ListView):
     # We specify the model for list view
     model = Book
 
+def authors_list(request):
+    data = Book.objects.all().values_list('author').distinct().order_by('author')
+    data = [result_tuple[0] for result_tuple in data]
+    return render(request, 'reference/authors_list.html', {'authors': list(data)})
+
 def book_new(request):
     if request.method == "POST":
         form = BookForm(request.POST)

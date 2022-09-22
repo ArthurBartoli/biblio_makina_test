@@ -1,0 +1,12 @@
+{% extends 'reference/base.html' %}
+
+{% block content %}
+    <!-- Content of the table -->
+<ul>
+    {% for author in authors %}
+    <li><h4>{{ author }}</h4></li>
+    {% empty %}
+    <h3>Aucun livre dans la base de données..</h3>
+    {% endfor %}
+</ul>
+{% endblock %}
