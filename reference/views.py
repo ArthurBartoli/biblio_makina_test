@@ -14,6 +14,10 @@ def authors_list(request):
     data = [result_tuple[0] for result_tuple in data]
     return render(request, 'reference/authors_list.html', {'authors': list(data)})
 
+def books_by_author(request, author):
+    data = Book.objects.all().filter(author=author).order_by('title')
+    return render(request, 'reference/book_list.html', {'object_list': data})
+
 def book_new(request):
     if request.method == "POST":
         form = BookForm(request.POST)

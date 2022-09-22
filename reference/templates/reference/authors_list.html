@@ -4,7 +4,11 @@
     <!-- Content of the table -->
 <ul>
     {% for author in authors %}
-    <li><h4>{{ author }}</h4></li>
+    <li><h4>
+        <a href={% url 'books_by_author' author=author%}>
+            {{ author }}
+        </a>
+    </h4></li>
     {% empty %}
     <h3>Aucun livre dans la base de données..</h3>
     {% endfor %}
