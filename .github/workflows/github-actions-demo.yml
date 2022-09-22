@@ -4,4 +4,5 @@ jobs:
   Test:
     runs-on: ubuntu-latest
     steps:
+      - run: cd ../..
       - run: docker-compose run web python manage.py test
