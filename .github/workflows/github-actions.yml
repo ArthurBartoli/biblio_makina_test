@@ -16,6 +16,7 @@ jobs:
           source: "."
           strict: "medium"
           mypy-options: "--ignore-missing-imports --show-error-codes"
+          pylint-options: "--rcfile=.pylintrc"
           django: true
   Test:
     runs-on: ubuntu-latest
