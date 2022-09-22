@@ -1,0 +1,7 @@
+name: Unit Tests
+on: [push]
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker-compose run web python manage.py test
