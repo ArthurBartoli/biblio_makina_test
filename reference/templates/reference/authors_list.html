@@ -1,17 +1,19 @@
 {% extends 'reference/base.html' %}
 
 {% block content %}
-<h3>Liste des auteurs enregistrés par ordre alphabétique</h3>
-<ul>
-    {% for author in authors %}
-    <!-- Display links to corresponding tables -->
-    <li><h4>
-        <a href={% url 'books_by_author' author=author%}>
-            {{ author }}
-        </a>
-    </h4></li>
-    {% empty %}
-    <h3>Aucun livre dans la base de données..</h3>
-    {% endfor %}
-</ul>
+<h2>Liste des auteurs enregistrés par ordre alphabétique</h3>
+<p>
+    <ul>
+        {% for author in authors %}
+        <!-- Display links to corresponding tables -->
+        <li><h4>
+            <a href={% url 'books_by_author' author=author%}>
+                {{ author }}
+            </a>
+        </h4></li>
+        {% empty %}
+        <h3>Aucun livre dans la base de données..</h3>
+        {% endfor %}
+    </ul>
+</p>
 {% endblock %}
