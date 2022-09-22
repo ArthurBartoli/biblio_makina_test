@@ -72,6 +72,55 @@ class EditBookViewTest(TestCase):
             self.assertEqual(val, self.data[k])
 
 
+class DeleteBookViewTest(TestCase):
+
+    def setUp(self):
+            self.test_book = Book.objects.create(
+                    title='Titre',
+                    og_title='Title',
+                    author='Auteur',
+                    desc='Desc',
+                    isbn='ISBN',
+                    published_year=1,
+                    is_lent=True
+                )
+
+    def test_delete_success(self):
+        response = self.client.get(reverse('book_delete', args=[self.test_book.pk]))
+
+        # Checking status
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response["Location"], reverse('book_view'))
+
+        # Checking the object is deleted
+        self.assertFalse(Book.objects.filter(pk=self.test_book.pk).exists())
+
+class LendingBookViewTest(TestCase):
+
+    def setUp(self):
+            self.test_book = Book.objects.create(
+                    title='Titre',
+                    og_title='Title',
+                    author='Auteur',
+                    desc='Desc',
+                    isbn='ISBN',
+                    published_year=1,
+                    is_lent=True
+                )
+
+    def test_lending_success(self):
+        response = self.client.get(reverse('book_lending', args=[self.test_book.pk]))
+
+        # Checking status
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response["Location"], reverse('book_view'))
+
+        # Checking the object has lent status corrected
+        new_book = Book.objects.get(pk=self.test_book.pk)
+        self.assertFalse(getattr(new_book, 'is_lent'))
+
+
+
 class ViewResponseTest(TestCase):
 
     def setUp(self):
