@@ -1,7 +1,34 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from http import HTTPStatus
+
 from reference.models import Book
+from reference.forms import BookForm
+
+class AddBookViewTest(TestCase):
+
+    def setUp(self):
+            dummyData = {}
+            dummyData['title'] = "Le Test"
+            dummyData['og_title'] = "The Test"
+            dummyData['author'] = "Mister Test"
+            dummyData['desc'] = "Ceci n'est pas un test"
+            dummyData['isbn'] = "74-86-Le-Test"
+            dummyData['published_year'] = 2022
+            dummyData['is_lent'] = False
+
+            self.data = dummyData
+
+    def test_post_success(self):
+        response = self.client.post(reverse('book_new'), data=self.data)
+
+        # We check that the data is valid
+        form = BookForm(data=self.data)
+        self.assertTrue(form.is_valid())
+
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response["Location"], reverse('book_view'))
 
 
 
@@ -27,22 +54,26 @@ class ViewResponseTest(TestCase):
     def test_view_response_main(self):
         """The main page displays correctly"""
         response = self.client.get(reverse('book_view'))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        
 
     def test_view_response_new_book(self):
         """The new book page displays correctly"""
         response = self.client.get(reverse('book_new'))
-        self.assertEqual(response.status_code, 200)
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_view_response_edit_book(self):
         """The book edit page displays correctly"""
         response = self.client.get(reverse('book_edit', args=[self.test_books[0].pk]))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
     def test_view_response_delete_book(self):
         """The delete book page displays correctly"""
         response = self.client.get(reverse('book_delete', args=[self.test_books[1].pk]))
-        self.assertEqual(response.status_code, 302) # The user is redirected
+        self.assertEqual(response.status_code, HTTPStatus.FOUND) # The user is redirected..
+        self.assertEqual(response["Location"], reverse('book_view')) # ..to main page
     def test_view_response_lending_book(self):
         """The lending set book page displays correctly"""
         response = self.client.get(reverse('book_lending', args=[self.test_books[2].pk]))
-        self.assertEqual(response.status_code, 302) # The user is redirected
+        self.assertEqual(response.status_code, HTTPStatus.FOUND) # The user is redirected..
+        self.assertEqual(response["Location"], reverse('book_view')) # ..to main page

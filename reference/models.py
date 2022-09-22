@@ -13,5 +13,6 @@ class Book(models.Model):
     published_year = models.PositiveIntegerField(verbose_name="Année de publication")
     is_lent = models.BooleanField(default=False, verbose_name="Déjà emprunté ?")
 
+
     def __str__(self):
         return self.title
