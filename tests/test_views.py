@@ -21,6 +21,7 @@ class AddBookViewTest(TestCase):
             self.data = dummyData
 
     def test_post_success(self):
+        '''Is a new book correctly added to the DB ?'''
         response = self.client.post(reverse('book_new'), data=self.data)
 
         # We check that the data is valid
@@ -55,6 +56,7 @@ class EditBookViewTest(TestCase):
             self.data = dummyData
 
     def test_edit_success(self):
+        '''Is a book correctly edited in the DB ?'''
         response = self.client.post(reverse('book_edit', args=[self.test_book.pk]), data=self.data)
 
         # We check that the data is valid
@@ -86,6 +88,7 @@ class DeleteBookViewTest(TestCase):
                 )
 
     def test_delete_success(self):
+        '''Is a book correctly deleted from the DB ?'''
         response = self.client.get(reverse('book_delete', args=[self.test_book.pk]))
 
         # Checking status
@@ -98,7 +101,7 @@ class DeleteBookViewTest(TestCase):
 class LendingBookViewTest(TestCase):
 
     def setUp(self):
-            self.test_book = Book.objects.create(
+            self.test_book_lent = Book.objects.create(
                     title='Titre',
                     og_title='Title',
                     author='Auteur',
@@ -107,17 +110,40 @@ class LendingBookViewTest(TestCase):
                     published_year=1,
                     is_lent=True
                 )
+            
+            self.test_book_not_lent = Book.objects.create(
+                    title='Titre',
+                    og_title='Title',
+                    author='Auteur',
+                    desc='Desc',
+                    isbn='ISBN',
+                    published_year=1,
+                    is_lent=False
+                )
 
-    def test_lending_success(self):
-        response = self.client.get(reverse('book_lending', args=[self.test_book.pk]))
+    def test_unlending_success(self):
+        '''Is a book's lending status correctly changed to false from the DB ?'''
+        response = self.client.get(reverse('book_lending', args=[self.test_book_lent.pk]))
 
         # Checking status
         self.assertEqual(response.status_code, HTTPStatus.FOUND)
         self.assertEqual(response["Location"], reverse('book_view'))
 
         # Checking the object has lent status corrected
-        new_book = Book.objects.get(pk=self.test_book.pk)
+        new_book = Book.objects.get(pk=self.test_book_lent.pk)
         self.assertFalse(getattr(new_book, 'is_lent'))
+
+    def test_lending_success(self):
+        '''Is a book's lending status correctly changed from the DB ?'''
+        response = self.client.get(reverse('book_lending', args=[self.test_book_not_lent.pk]))
+
+        # Checking status
+        self.assertEqual(response.status_code, HTTPStatus.FOUND)
+        self.assertEqual(response["Location"], reverse('book_view'))
+
+        # Checking the object has lent status corrected
+        new_book = Book.objects.get(pk=self.test_book_not_lent.pk)
+        self.assertTrue(getattr(new_book, 'is_lent'))
 
 
 
