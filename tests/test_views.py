@@ -134,7 +134,7 @@ class LendingBookViewTest(TestCase):
         self.assertFalse(getattr(new_book, 'is_lent'))
 
     def test_lending_success(self):
-        '''Is a book's lending status correctly changed from the DB ?'''
+        '''Is a book's lending status correctly changed to true from the DB ?'''
         response = self.client.get(reverse('book_lending', args=[self.test_book_not_lent.pk]))
 
         # Checking status
