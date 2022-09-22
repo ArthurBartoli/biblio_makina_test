@@ -27,6 +27,3 @@ en option, bonus :
 - Mettre en place une intégration continue avec github actions
   - avec un job de vérification de la qualité (au choix)
   - un job qui lance et vérifie les tests unitaires
-
-brouillon: 'Titre', 'Titre original', 'Auteur', \
-            'Description', 'ISBN', 'Année de publication', 'Déjà emprunté ? (cochez pour oui)'
