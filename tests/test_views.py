@@ -174,6 +174,36 @@ class AuthorsListViewTest(TestCase):
             self.assertContains(response, author)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
+
+class BooksByAuthorViewTest(TestCase):
+
+    def setUp(self):
+        self.data = []
+
+        authors = ['Bob', 'Alice', 'Zeitoun', 'Alice', 'Dan']
+
+        for author in authors:
+            self.data = Book.objects.create(
+                title='Titre',
+                og_title='Title',
+                author=author,
+                desc='Desc',
+                isbn='ISBN',
+                published_year=1,
+                is_lent=False
+            )
+
+    def test_display_success(self):
+        '''Is the list of unique authors displayed as intended ? 
+        '''
+
+        response = self.client.get(reverse('books_by_author', args=['Bob']))
+
+        query = response.context[-1]['object_list']
+        for book in query:
+            self.assertEqual(book.author, 'Bob')
+
+        self.assertEqual(response.status_code, HTTPStatus.OK)
         
 
 
