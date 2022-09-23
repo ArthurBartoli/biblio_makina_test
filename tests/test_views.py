@@ -170,8 +170,10 @@ class AuthorsListViewTest(TestCase):
         response = self.client.get(reverse('authors_list'))
 
         authors = ['Alice', 'Bob', 'Dan', 'Zeitoun']
-        for author in authors:
-            self.assertContains(response, author)
+        query = response.context[-1]['authors']
+        print(query)
+        for author, author_queried in zip(authors, query):
+            self.assertEqual(author, author_queried)
 
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
